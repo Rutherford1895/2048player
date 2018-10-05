@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<pre id="log"></pre>
+<head>
+
+</head>
+
+<body>
+
+<button type="button" onclick="sendup()">↑</button>
+<button type="button" onclick="senddown()">↓</button>
+<button type="button" onclick="sendleft()">←</button>
+<button type="button" onclick="sendright()">→</button>
+<button type="button" onclick="sendb()">Stop</button>
+  <script>
+  // helper function: log message to screen
+  function log(msg) {
+    document.getElementById('log').textContent += msg + '\n';
+  }
+  function sendup()
+    {
+      ws.send('w');
+    }
+
+  function senddown()
+    {
+      ws.send('s');
+    }
+
+  function sendleft()
+    {
+      ws.send('a');
+    }
+
+  function sendright()
+    {
+      ws.send('d');
+    }
+  function sendb()
+    {
+      ws.send('b');
+    }
+
+  // setup websocket with callbacks
+  var ws = new WebSocket('ws://0.0.0.0:80/'); //replace with your own website or 0.0.0.0 for localhost
+
+  ws.onopen = function() {
+    log('CONNECT');
+  };
+  ws.onclose = function() {
+    log('DISCONNECT');
+  };
+  ws.onmessage = function(event) {
+    log(' ' + event.data);
+  };
+</script>
+</body>
